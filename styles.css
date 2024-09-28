@@ -31,7 +31,8 @@ body {
 }
 
 #game-container {
-    padding: 5% 15%; /* Top and bottom 2%, left and right 5% */
+    margin: 1 auto;
+    padding: 20px; /* Top and bottom 2%, left and right 5% */
     box-sizing: border-box; /* Ensure padding is included in total width */
 }
 
