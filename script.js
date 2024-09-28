@@ -162,6 +162,11 @@ function calculateClearedPixels(overlayCtx, overlayCanvas) {
 function showCelebration() {
     const celebrationDiv = document.getElementById('celebration');
     celebrationDiv.classList.remove('hidden'); // Show celebration
+
+    // Calculate grid dimensions
+    const gridWidth = cellSize * 3; // 3 cells
+    celebrationDiv.style.borderWidth = `${Math.min(gridWidth / 20, 10)}px`; // Responsive border size
+ 
     startFireworks();
 }
 

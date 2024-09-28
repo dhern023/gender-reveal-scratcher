@@ -75,17 +75,27 @@ canvas {
 }
 
 #celebration {
-    text-align: center;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000; /* Ensure it appears above other elements */
-    border: 4px solid #53524e; /* Bright border color */
-    border-radius: 15px; /* Rounded corners */
-    padding: 20px; /* Space inside the border */
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    padding: 20px;
+    border: 5px solid gold; /* Adjust this value as needed */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 100;
+    display: none; /* Initially hidden */
+}
+
+#celebration.visible {
+    display: block; /* Show when active */
+}
+
+/* Responsive adjustments based on grid size */
+@media (max-width: 600px) {
+    #celebration {
+        border: 3px solid gold; /* Smaller border for mobile */
+    }
 }
 
 #fireworksCanvas {
