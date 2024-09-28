@@ -1,15 +1,12 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin: 0; /* Remove default margin */
-    padding: 20px; /* Padding inside the body */
     background-color: #f0f0f0;
     overflow: auto; /* Allow scrolling if needed */
-    position: relative; /* Needed for absolute positioning of elements */
-    margin-left: auto; /* Center the body */
-    margin-right: auto; /* Center the body */
+    position:center;
 }
 
 
@@ -30,15 +27,15 @@ body {
 }
 
 #game-container {
-    margin: 1 auto;
+    margin: 0 auto;
     padding: 20px; /* Top and bottom 2%, left and right 5% */
     box-sizing: border-box; /* Ensure padding is included in total width */
+    position: relative;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    position: relative; /* Set position relative for absolute children */
 }
 
 .cell {
