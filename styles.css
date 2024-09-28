@@ -83,6 +83,7 @@ body {
     pointer-events: none;
     z-index: 1; /* Ensure the banner is above the canvas */
     width:100vh;
+    max-width: 101%;
 }
 
 .celebration-text {
