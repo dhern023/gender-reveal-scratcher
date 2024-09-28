@@ -11,7 +11,7 @@ const images = [
 ];
 
 const gridSize = 3;
-const cellSize = 130; // Size for each cell
+const cellSize = 125; // Size for each cell
 const canvasImage = 'static/silver.jpg';
 const targetImage = 'static/heart-red.png'; // Image to check
 const pixelThreshold = 0.75; // 98% threshold

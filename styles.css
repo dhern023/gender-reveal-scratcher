@@ -1,11 +1,14 @@
+* {
+    box-sizing: border-box; /* Apply to all elements */
+}
+
+
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-self: center;
     background-color: #f0f0f0;
-    margin: 0 auto;
+    border: 10px solid;
+    width:80%
 }
 
 
@@ -26,22 +29,23 @@ body {
 }
 
 #game-container {
-    margin: 0 auto; /* Center */
     position: relative;
     margin-top: 1%;
     margin-bottom: 1%;
+    margin: 0 auto;
+    box-sizing:content-box;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Default layout */
-    width: 100%; /* Ensure full width */
+    grid-template-columns: repeat(3, auto); /* Default layout */
 }
 
 .cell {
     border: 3px solid transparent;
     transition: border 0.3s, box-shadow 0.3s;
-    position: relative; /* Position relative for child elements */
+    margin: 0; /* No external margin */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .cell.winner {
@@ -89,7 +93,6 @@ body {
     font-size: 50px;
     color: #ff00a6;
     text-align: center;
-    position: relative; /* Ensure text stays above canvas */
     z-index: 1; /* Ensure it appears on top */
 }
 
