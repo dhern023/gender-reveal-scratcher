@@ -160,18 +160,14 @@ function calculateClearedPixels(overlayCtx, overlayCanvas) {
 }
 
 function showCelebration() {
-    const celebrationDiv = document.getElementById('celebration');
+    const celebrationDiv = document.getElementById('celebration-containter');
     celebrationDiv.classList.remove('hidden'); // Show celebration
 
-    // Calculate grid dimensions
-    const gridWidth = cellSize * 3; // 3 cells
-    celebrationDiv.style.borderWidth = `${Math.min(gridWidth / 20, 10)}px`; // Responsive border size
- 
     startFireworks();
 }
 
 function stopCelebration() {
-    const celebrationDiv = document.getElementById('celebration');
+    const celebrationDiv = document.getElementById('celebration-containter');
     celebrationDiv.classList.add('hidden'); // stop celebration
 }
 
@@ -179,8 +175,8 @@ function startFireworks() {
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = cellSize * gridSize;
+    canvas.height = cellSize * gridSize;
 
     // Fireworks configuration
     const particles = [];
@@ -193,7 +189,7 @@ function startFireworks() {
                 x: x,
                 y: y,
                 speed: Math.random() * 1 + 1,
-                angle: Math.random() * 2 * Math.PI,
+                angle: -1 * Math.random() * 1 * Math.PI,
                 color: colors[Math.floor(Math.random() * colors.length)],
                 alpha: 1,
                 size: Math.random() * 13 + 1
@@ -210,7 +206,7 @@ function startFireworks() {
             ctx.fillStyle = particle.color;
             ctx.globalAlpha = particle.alpha;
             ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 5);
+            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
             ctx.fill();
 
             if (particle.alpha <= 0) {

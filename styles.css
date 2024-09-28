@@ -1,77 +1,97 @@
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    height: 100vh;
+    justify-content: space-between; /* Distribute space between elements */
+    align-items: center;
     margin: 0;
+    padding: 20px; /* Add some padding */
     background-color: #f0f0f0;
+    overflow: auto; /* Allow scrolling if needed */
+    position: relative; /* Needed for absolute positioning of the celebration */
 }
 
 .title {
-    font-family: 'Great Vibes', cursive; /* Use the imported font */
-    font-size: 40px; /* Adjust size as needed */
+    font-family: 'Great Vibes', cursive;
     text-align: center;
-    margin:0%;
-    color: #333; /* Change color if desired */
+    margin: 0 0 0; /* Margin below for spacing */
+    color: #333;
 }
 
 .subtitle {
-    font-family: 'Great Vibes', cursive; /* Use the imported font */
-    font-size: 31px; /* Adjust size as needed */
+    font-family: 'Great Vibes', cursive;
     text-align: center;
-    margin-top: 1%; /* Space between title and subtitle */
-    color: #333; /* Change color if desired */
+    margin: 0 0 0; /* Margin below for spacing */
+    color: #333;
 }
 
 #game-container {
     display: flex;
     justify-content: center;
-    /* margin: 1 auto; */
     padding: 20px; /* Add padding to the sides */
+    margin: 0; /* No extra margin */
+    position: relative; /* Set position relative for absolute children */
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 1%; /* Adjust for spacing between cells */
+    position: relative;
 }
 
 .cell {
-    border: 3px solid transparent; /* Default border */
-    transition: border 0.3s, box-shadow 0.3s; /* Smooth transition */
+    border: 3px solid transparent;
+    transition: border 0.3s, box-shadow 0.3s;
+    position: relative; /* Position relative for child elements */
 }
 
 .cell.winner {
-    border: 5px solid rgba(255, 0, 128, 1) !important; /* Force border color */
-    box-shadow: 0 0 20px rgba(255, 0, 128, 1) !important; /* Force glowing effect */
-}
-
-canvas {
-    width: 100%; /* Make canvases responsive */
-    height: auto; /* Maintain aspect ratio */
+    border: 5px solid rgba(255, 0, 128, 1) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 1) !important;
 }
 
 .reset-button {
-    margin-top: 5%; /* Space between grid and reset button */
+    margin: 0 0; /* Space above and below */
     background-color: #a4c8b9;
-    color: rgb(0, 0, 0); /* Text color */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 15px 30px; /* Padding around text */
-    font-size: 20px; /* Font size */
-    font-family: 'Gowun Batang', cursive; /* Fancy font */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-family: 'Gowun Batang', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .reset-button:hover {
-    background-color:#a4c8b9;
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    background-color: #a4c8b9;
+    transform: scale(1.05);
 }
 
 .reset-button:active {
-    transform: scale(0.95); /* Shrink on click */
+    transform: scale(0.95);
+}
+
+#celebration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 15px;
+    pointer-events: none;
+    z-index: 1; /* Ensure the banner is above the canvas */
+}
+
+.celebration-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 50px;
+    color: #ff00a6;
+    text-align: center;
+    position: relative; /* Ensure text stays above canvas */
+    z-index: 1; /* Ensure it appears on top */
 }
 
 #fireworksCanvas {
@@ -80,16 +100,11 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
+    /* Cover full viewport */
+    z-index: 0; /* Behind the text */
     pointer-events: none; /* Allow clicks to go through */
 }
 
 .hidden {
-    display: none; /* Hide the celebration by default */
-}
-
-.celebration-text {
-    font-family: 'Great Vibes', cursive;
-    font-size: 80px;
-    color: #ff00a6; /* Bright color for visibility */
-    /* margin-bottom: 20px; */
+    display: none;
 }
