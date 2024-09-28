@@ -78,6 +78,7 @@ function resetGame() {
         overlayCtx.fillStyle = 'rgba(0, 0, 0, 1)';
         overlayCtx.fillRect(0, 0, cellSize, cellSize);
     });
+    stopCelebration();
     initializeGame(); // Recreate the grid to reset the game state
 }
 
@@ -164,6 +165,11 @@ function showCelebration() {
     startFireworks();
 }
 
+function stopCelebration() {
+    const celebrationDiv = document.getElementById('celebration');
+    celebrationDiv.classList.add('hidden'); // stop celebration
+}
+
 function startFireworks() {
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
@@ -181,11 +187,11 @@ function startFireworks() {
             particles.push({
                 x: x,
                 y: y,
-                speed: Math.random() * 15 + 1,
+                speed: Math.random() * 1 + 1,
                 angle: Math.random() * 2 * Math.PI,
                 color: colors[Math.floor(Math.random() * colors.length)],
                 alpha: 1,
-                size: Math.random() * 15 + 1
+                size: Math.random() * 13 + 1
             });
         }
     }
@@ -193,13 +199,13 @@ function startFireworks() {
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((particle, index) => {
-            particle.x += particle.speed * Math.cos(particle.angle);
-            particle.y += particle.speed * Math.sin(particle.angle);
+            particle.x += 4 * particle.speed * Math.cos(particle.angle);
+            particle.y += 4 * particle.speed * Math.sin(particle.angle);
             particle.alpha -= 0.02; // Fade out
             ctx.fillStyle = particle.color;
             ctx.globalAlpha = particle.alpha;
             ctx.beginPath();
-            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 5);
             ctx.fill();
 
             if (particle.alpha <= 0) {
@@ -212,8 +218,17 @@ function startFireworks() {
         }
     }
 
+
     // Trigger fireworks at the center
-    createFirework(canvas.width / 2, canvas.height / 2);
+    createFirework(0, canvas.height / 1);
+    createFirework(canvas.width / 1, canvas.height / 1);
+
+    createFirework(0, canvas.height / 2);
+    createFirework(canvas.width / 1, canvas.height / 2);
+
+    createFirework(0, canvas.height / 8);
+    createFirework(canvas.width / 1, canvas.height / 8);
+
     animate();
 }
 

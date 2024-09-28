@@ -81,6 +81,11 @@ canvas {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000; /* Ensure it appears above other elements */
+    border: 4px solid #53524e; /* Bright border color */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Space inside the border */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
 }
 
 #fireworksCanvas {
@@ -100,5 +105,5 @@ canvas {
     font-family: 'Great Vibes', cursive;
     font-size: 80px;
     color: #ff00a6; /* Bright color for visibility */
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
