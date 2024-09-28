@@ -1,9 +1,8 @@
 body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content:space-around;
     flex-direction: column;
-    margin: 0;
+    align-items: center;
     background-color: #f0f0f0;
 }
 
@@ -25,15 +24,17 @@ body {
 }
 
 #game-container {
-    padding: 20px; /* Top and bottom 2%, left and right 5% */
-    box-sizing: border-box; /* Ensure padding is included in total width */
+    max-width: 90%; /* Limit max width */
+    margin: 0 auto; /* Center */
     position: relative;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 1%;
+    grid-template-columns: repeat(3, 1fr); /* Default layout */
+    width: 100%; /* Ensure full width */
 }
 
 .cell {
