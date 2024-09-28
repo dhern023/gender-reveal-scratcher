@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.title {
+    font-family: 'Great Vibes', cursive; /* Use the imported font */
+    font-size: 40px; /* Adjust size as needed */
+    text-align: center;
+    margin-bottom: 20px; /* Space between title and game */
+    color: #333; /* Change color if desired */
+}
+
+#game-container {
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Adjust for spacing between cells */
+}
+
+.cell {
+    border: 1px solid transparent; /* Default border */
+    transition: border 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.cell.winner {
+    border: 5px solid rgba(255, 0, 128, 1) !important; /* Force border color */
+    box-shadow: 0 0 20px rgba(255, 0, 128, 1) !important; /* Force glowing effect */
+}
+
+.cell.loser {
+    border: 2px solid rgb(162, 39, 179) !important; /* Force border color */
+    box-shadow: 0 0 20px rgba(162, 39, 179, 1) !important; /* Force glowing effect */
+}
+
+canvas {
+    width: 100%; /* Make canvases responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+#reset-btn {
+    margin-top: 20px; /* Space between grid and reset button */
+}
