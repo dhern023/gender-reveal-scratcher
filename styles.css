@@ -87,10 +87,6 @@ canvas {
     display: none; /* Initially hidden */
 }
 
-#celebration.visible {
-    display: block; /* Show when active */
-}
-
 /* Responsive adjustments based on grid size */
 @media (max-width: 600px) {
     #celebration {
