@@ -73,3 +73,32 @@ canvas {
 .reset-button:active {
     transform: scale(0.95); /* Shrink on click */
 }
+
+#celebration {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+#fireworksCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to go through */
+}
+
+.hidden {
+    display: none; /* Hide the celebration by default */
+}
+
+.celebration-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 80px;
+    color: #ff00a6; /* Bright color for visibility */
+    margin-bottom: 20px;
+}

@@ -158,6 +158,65 @@ function calculateClearedPixels(overlayCtx, overlayCanvas) {
     return clearedPixels;
 }
 
+function showCelebration() {
+    const celebrationDiv = document.getElementById('celebration');
+    celebrationDiv.classList.remove('hidden'); // Show celebration
+    startFireworks();
+}
+
+function startFireworks() {
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Fireworks configuration
+    const particles = [];
+    const colors = ['#FFABAB', '#FFC3A0', '#FF677D', '#D4A5A5', '#392F5A'];
+
+    function createFirework(x, y) {
+        const count = 200; // Number of particles
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: x,
+                y: y,
+                speed: Math.random() * 15 + 1,
+                angle: Math.random() * 2 * Math.PI,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                alpha: 1,
+                size: Math.random() * 15 + 1
+            });
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle, index) => {
+            particle.x += particle.speed * Math.cos(particle.angle);
+            particle.y += particle.speed * Math.sin(particle.angle);
+            particle.alpha -= 0.02; // Fade out
+            ctx.fillStyle = particle.color;
+            ctx.globalAlpha = particle.alpha;
+            ctx.beginPath();
+            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (particle.alpha <= 0) {
+                particles.splice(index, 1); // Remove particle when faded
+            }
+        });
+
+        if (particles.length > 0) {
+            requestAnimationFrame(animate);
+        }
+    }
+
+    // Trigger fireworks at the center
+    createFirework(canvas.width / 2, canvas.height / 2);
+    animate();
+}
+
 // Check for win condition
 function checkWinCondition() {
     const cells = document.querySelectorAll('.cell');
@@ -168,7 +227,6 @@ function checkWinCondition() {
     // Check if we have exactly 3 revealed heart-red images
     if (revealedImages.length === 3) {
         const cells = document.querySelectorAll('.cell');
-
         // Iterate through each cell
         cells.forEach((cell) => {
             const cellIndex = cell.index; // Retrieve the index from the custom property
@@ -180,6 +238,7 @@ function checkWinCondition() {
                 console.log("Winner class added to cell:", cell); // Log for debugging
             }
         });
+        showCelebration(); // Show fireworks and message
     }
 }
 // Reset game button
