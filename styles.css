@@ -8,7 +8,6 @@ body {
     background-color: #f0f0f0;
     overflow: auto; /* Allow scrolling if needed */
     position: relative; /* Needed for absolute positioning of elements */
-    width: 80%; /* Set the body width to 80% */
     margin-left: auto; /* Center the body */
     margin-right: auto; /* Center the body */
 }
