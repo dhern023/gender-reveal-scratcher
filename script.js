@@ -15,8 +15,6 @@ const cellSize = 150; // Size for each cell
 const canvasImage = 'static/silver.jpg';
 const targetImage = 'static/heart-red.png'; // Image to check
 const pixelThreshold = 0.75; // 98% threshold
-let activeOverlay = null; // Track which overlay is currently active
-let isScratching = false; // Track whether the user is currently scratching
 
 function initializeGame() {
     const gridContainer = document.querySelector('.grid');
@@ -40,7 +38,7 @@ function initializeGame() {
         img.onload = () => {
             const scaledSize = cellSize * 0.9; // Calculate the size (90% of cellSize)
             const offset = (cellSize - scaledSize) / 2; // Calculate the offset to center the image
-        
+
             // Draw the image centered and scaled
             imgCtx.drawImage(img, offset, offset, scaledSize, scaledSize);
         };
@@ -62,17 +60,25 @@ function initializeGame() {
         overlayCanvas.style.top = 0;
         overlayCanvas.style.left = 0;
 
-        overlayCanvas.addEventListener('mousedown', startScratch.bind(null, overlayCtx, overlayCanvas, imageData));
-        overlayCanvas.addEventListener('touchstart', startScratch.bind(null, overlayCtx, overlayCanvas, imageData));
-
         cellDiv.appendChild(overlayCanvas);
         gridContainer.appendChild(cellDiv);
-    });
 
-    // Reset game state
+        // Add event listeners for scratching
+        addScratchEvents(cellDiv, overlayCanvas, overlayCtx, imageData);
+    });
+}
+
+function resetGame() {
     images.forEach(imageData => imageData.revealed = false); // Reset revealed status
-    activeOverlay = null; // Reset active overlay
-    isScratching = false; // Reset scratching flag
+
+    document.querySelectorAll('.cell').forEach(cell => {
+        cell.classList.remove('winner');
+        const overlayCanvas = cell.querySelector('canvas:nth-child(2)');
+        const overlayCtx = overlayCanvas.getContext('2d');
+        overlayCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+        overlayCtx.fillRect(0, 0, cellSize, cellSize);
+    });
+    initializeGame(); // Recreate the grid to reset the game state
 }
 
 function shuffle(array) {
@@ -83,44 +89,59 @@ function shuffle(array) {
     return array;
 }
 
-// Scratch functionality
-function startScratch(overlayCtx, overlayCanvas, imageData, e) {
-    e.preventDefault();
-
-    // If there's an active overlay, stop scratching it
-    if (activeOverlay && activeOverlay !== overlayCanvas) {
-        stopScratch(activeOverlay);
-    }
-
-    activeOverlay = overlayCanvas; // Set the current active overlay
-    isScratching = true; // Set the scratching flag to true
-
-    overlayCanvas.addEventListener('mousemove', scratch.bind(null, overlayCtx, overlayCanvas, imageData));
-    overlayCanvas.addEventListener('mouseup', stopScratch.bind(null, overlayCanvas));
-    overlayCanvas.addEventListener('mouseleave', stopScratch.bind(null, overlayCanvas)); // Stop on leaving the canvas
-    overlayCanvas.addEventListener('touchmove', scratch.bind(null, overlayCtx, overlayCanvas, imageData));
-    overlayCanvas.addEventListener('touchend', stopScratch.bind(null, overlayCanvas));
-    
-    scratch(overlayCtx, overlayCanvas, imageData, e); // Initial scratch
-}
-
-function scratch(overlayCtx, overlayCanvas, imageData, e) {
-    if (!isScratching) return; // Only scratch if the user is actively scratching
-
-    const rect = overlayCanvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    overlayCtx.clearRect(x - 20, y - 20, 40, 40); // Scratch area
-
+// Function to check if the image is revealed
+function checkReveal(imageData, overlayCtx, overlayCanvas) {
     // Check if the cleared pixels meet the 98% threshold
     const totalPixels = cellSize * cellSize;
     const clearedPixels = calculateClearedPixels(overlayCtx, overlayCanvas);
     if (clearedPixels / totalPixels >= pixelThreshold && !imageData.revealed) {
-        imageData.revealed = true; // Mark this image as revealed
+        imageData.revealed = true;
     }
     checkWinCondition();
 }
+
+// Function to add scratch events
+function addScratchEvents(cellDiv, overlayCanvas, overlayCtx, imageData) {
+    let isScratching = false; // Track if the user is currently scratching
+
+    const startScratching = (event) => {
+        event.preventDefault();
+        isScratching = true; // Set to true when starting to scratch
+        scratch(event, overlayCtx, overlayCanvas, imageData);
+    };
+
+    const stopScratching = () => {
+        isScratching = false; // Reset scratching state
+        checkWinCondition();
+    };
+
+    const scratch = (event, overlayCtx, overlayCanvas, imageData) => {
+        const rect = overlayCanvas.getBoundingClientRect();
+        const offsetX = event.touches ? event.touches[0].clientX - rect.left : event.clientX - rect.left;
+        const offsetY = event.touches ? event.touches[0].clientY - rect.top : event.clientY - rect.top;
+
+        overlayCtx.clearRect(offsetX - 20, offsetY - 20, 40, 40); // Scratch area
+        checkReveal(imageData, overlayCtx, overlayCanvas);
+    };
+
+    // Start scratching on touch and mouse down
+    cellDiv.addEventListener('mousedown', startScratching);
+    cellDiv.addEventListener('touchstart', startScratching);
+
+    // Scratching while moving
+    cellDiv.addEventListener('mousemove', (event) => {
+        if (isScratching) scratch(event, overlayCtx, overlayCanvas, imageData);
+    });
+    cellDiv.addEventListener('touchmove', (event) => {
+        event.preventDefault();
+        if (isScratching) scratch(event, overlayCtx, overlayCanvas, imageData);
+    });
+
+    // Stop scratching on mouse up and touch end
+    cellDiv.addEventListener('mouseup', stopScratching);
+    cellDiv.addEventListener('touchend', stopScratching);
+}
+
 
 function calculateClearedPixels(overlayCtx, overlayCanvas) {
     const imageData = overlayCtx.getImageData(0, 0, overlayCanvas.width, overlayCanvas.height);
@@ -135,17 +156,6 @@ function calculateClearedPixels(overlayCtx, overlayCanvas) {
     }
 
     return clearedPixels;
-}
-
-function stopScratch(overlayCanvas) {
-    overlayCanvas.removeEventListener('mousemove', scratch);
-    overlayCanvas.removeEventListener('mouseup', stopScratch);
-    overlayCanvas.removeEventListener('mouseleave', stopScratch);
-    overlayCanvas.removeEventListener('touchmove', scratch);
-    overlayCanvas.removeEventListener('touchend', stopScratch);
-    isScratching = false; // Reset scratching flag
-    activeOverlay = null; // Reset active overlay
-    checkWinCondition();
 }
 
 // Check for win condition
@@ -173,7 +183,7 @@ function checkWinCondition() {
     }
 }
 // Reset game button
-document.getElementById('resetButton').addEventListener('click', initializeGame);
+document.getElementById('resetButton').addEventListener('click', resetGame);
 
 // Initialize game on load
 window.onload = initializeGame;
