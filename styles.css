@@ -27,7 +27,8 @@ body {
 #game-container {
     display: flex;
     justify-content: center;
-    margin: 0 auto
+    margin: 1 auto;
+    /* padding: 20px; Add padding to the sides */
 }
 
 .grid {
