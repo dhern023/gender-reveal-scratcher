@@ -1,10 +1,10 @@
 body {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+    margin: 0;
     background-color: #f0f0f0;
-    overflow: auto; /* Allow scrolling if needed */
 }
 
 
@@ -25,7 +25,6 @@ body {
 }
 
 #game-container {
-    margin: 0 0 0;
     padding: 20px; /* Top and bottom 2%, left and right 5% */
     box-sizing: border-box; /* Ensure padding is included in total width */
     position: relative;
@@ -34,6 +33,7 @@ body {
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    padding: 1%;
 }
 
 .cell {
