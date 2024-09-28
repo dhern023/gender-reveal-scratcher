@@ -1,19 +1,19 @@
 const images = [
-    { src: '../static/heart-red.png', revealed: false, index: 0 },
-    { src: '../static/heart-red.png', revealed: false, index: 1 },
-    { src: '../static/heart-red.png', revealed: false, index: 2 },
-    { src: '../static/heart-blue.png', revealed: false, index: 3 },
-    { src: '../static/heart-blue.png', revealed: false, index: 4 },
-    { src: '../static/diamond-blue.png', revealed: false, index: 5 },
-    { src: '../static/diamond-blue.png', revealed: false, index: 6 },
-    { src: '../static/diamond-red.png', revealed: false, index: 7 },
-    { src: '../static/diamond-red.png', revealed: false, index: 8 }
+    { src: 'static/heart-red.png', revealed: false, index: 0 },
+    { src: 'static/heart-red.png', revealed: false, index: 1 },
+    { src: 'static/heart-red.png', revealed: false, index: 2 },
+    { src: 'static/heart-blue.png', revealed: false, index: 3 },
+    { src: 'static/heart-blue.png', revealed: false, index: 4 },
+    { src: 'static/diamond-blue.png', revealed: false, index: 5 },
+    { src: 'static/diamond-blue.png', revealed: false, index: 6 },
+    { src: 'static/diamond-red.png', revealed: false, index: 7 },
+    { src: 'static/diamond-red.png', revealed: false, index: 8 }
 ];
 
 const gridSize = 3;
 const cellSize = 150; // Size for each cell
-const canvasImage = '../static/silver.jpg';
-const targetImage = '../static/heart-red.png'; // Image to check
+const canvasImage = 'static/silver.jpg';
+const targetImage = 'static/heart-red.png'; // Image to check
 const pixelThreshold = 0.75; // 98% threshold
 let activeOverlay = null; // Track which overlay is currently active
 let isScratching = false; // Track whether the user is currently scratching
