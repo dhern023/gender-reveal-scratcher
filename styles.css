@@ -16,17 +16,18 @@ body {
     color: #333; /* Change color if desired */
 }
 
-.sub-title {
+.subtitle {
     font-family: 'Great Vibes', cursive; /* Use the imported font */
     font-size: 30px; /* Adjust size as needed */
     text-align: center;
-    margin-top: 2%; /* Space between title and subtitle */
+    margin-top: 0%; /* Space between title and subtitle */
     color: #333; /* Change color if desired */
 }
 
 #game-container {
     display: flex;
     justify-content: center;
+    margin: 0 auto
 }
 
 .grid {
