@@ -37,16 +37,29 @@ body {
     box-shadow: 0 0 20px rgba(255, 0, 128, 1) !important; /* Force glowing effect */
 }
 
-.cell.loser {
-    border: 2px solid rgb(162, 39, 179) !important; /* Force border color */
-    box-shadow: 0 0 20px rgba(162, 39, 179, 1) !important; /* Force glowing effect */
-}
-
 canvas {
     width: 100%; /* Make canvases responsive */
     height: auto; /* Maintain aspect ratio */
 }
 
-#reset-btn {
+.reset-button {
     margin-top: 20px; /* Space between grid and reset button */
+    background-color: #a4c8b9; /* Bright orange */
+    color: rgb(0, 0, 0); /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 15px 30px; /* Padding around text */
+    font-size: 20px; /* Font size */
+    font-family: 'Gowun Batang', cursive; /* Fancy font */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+.reset-button:hover {
+    background-color: #e67e22; /* Darker orange on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.reset-button:active {
+    transform: scale(0.95); /* Shrink on click */
 }

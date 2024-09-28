@@ -4,14 +4,15 @@ const images = [
     { src: '../static/heart-red.png', revealed: false, index: 2 },
     { src: '../static/heart-blue.png', revealed: false, index: 3 },
     { src: '../static/heart-blue.png', revealed: false, index: 4 },
-    { src: '../static/cross-blue.png', revealed: false, index: 5 },
-    { src: '../static/cross-blue.png', revealed: false, index: 6 },
-    { src: '../static/cross-red.png', revealed: false, index: 7 },
-    { src: '../static/cross-red.png', revealed: false, index: 8 }
+    { src: '../static/diamond-blue.png', revealed: false, index: 5 },
+    { src: '../static/diamond-blue.png', revealed: false, index: 6 },
+    { src: '../static/diamond-red.png', revealed: false, index: 7 },
+    { src: '../static/diamond-red.png', revealed: false, index: 8 }
 ];
 
 const gridSize = 3;
 const cellSize = 150; // Size for each cell
+const canvasImage = '../static/silver.jpg';
 const targetImage = '../static/heart-red.png'; // Image to check
 const pixelThreshold = 0.75; // 98% threshold
 let activeOverlay = null; // Track which overlay is currently active
@@ -37,7 +38,11 @@ function initializeGame() {
         const img = new Image();
         img.src = imageData.src;
         img.onload = () => {
-            imgCtx.drawImage(img, 0, 0, cellSize, cellSize);
+            const scaledSize = cellSize * 0.9; // Calculate the size (90% of cellSize)
+            const offset = (cellSize - scaledSize) / 2; // Calculate the offset to center the image
+        
+            // Draw the image centered and scaled
+            imgCtx.drawImage(img, offset, offset, scaledSize, scaledSize);
         };
         cellDiv.index = imageData.index; // Store the index in a data attribute
         cellDiv.appendChild(imageCanvas);
@@ -48,7 +53,7 @@ function initializeGame() {
         overlayCanvas.height = cellSize;
         const overlayCtx = overlayCanvas.getContext('2d');
         const overlayImg = new Image();
-        overlayImg.src = '../static/canvas.png'; // Use your canvas image
+        overlayImg.src = canvasImage; // Use your canvas image
         overlayImg.onload = () => {
             overlayCtx.drawImage(overlayImg, 0, 0, cellSize, cellSize);
         };
@@ -164,14 +169,11 @@ function checkWinCondition() {
                 cell.classList.add('winner'); // Add the winner class for glowing effect
                 console.log("Winner class added to cell:", cell); // Log for debugging
             }
-            else {
-                cell.classList.add('loser');
-            }
         });
     }
 }
 // Reset game button
-document.getElementById('reset-btn').addEventListener('click', initializeGame);
+document.getElementById('resetButton').addEventListener('click', initializeGame);
 
 // Initialize game on load
 window.onload = initializeGame;
