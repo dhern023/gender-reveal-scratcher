@@ -26,7 +26,6 @@ body {
 }
 
 #game-container {
-    max-width: 90%; /* Limit max width */
     margin: 0 auto; /* Center */
     position: relative;
     margin-top: 1%;
