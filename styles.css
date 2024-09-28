@@ -3,10 +3,8 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0; /* Remove default margin */
     background-color: #f0f0f0;
     overflow: auto; /* Allow scrolling if needed */
-    position:center;
 }
 
 
@@ -27,7 +25,7 @@ body {
 }
 
 #game-container {
-    margin: 0 auto;
+    margin: 0 0 0;
     padding: 20px; /* Top and bottom 2%, left and right 5% */
     box-sizing: border-box; /* Ensure padding is included in total width */
     position: relative;
@@ -50,7 +48,7 @@ body {
 }
 
 .reset-button {
-    margin: 0 0; /* Space above and below */
+    margin: 0 0 0; /* Space above and below */
     background-color: #a4c8b9;
     color: rgb(0, 0, 0);
     border: none;
