@@ -27,18 +27,18 @@ body {
 #game-container {
     display: flex;
     justify-content: center;
-    margin: 1 auto;
-    /* padding: 20px; Add padding to the sides */
+    /* margin: 1 auto; */
+    padding: 20px; /* Add padding to the sides */
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2%; /* Adjust for spacing between cells */
+    gap: 1%; /* Adjust for spacing between cells */
 }
 
 .cell {
-    border: 1px solid transparent; /* Default border */
+    border: 3px solid transparent; /* Default border */
     transition: border 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
