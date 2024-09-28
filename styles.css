@@ -31,17 +31,15 @@ body {
 }
 
 #game-container {
-    display: flex;
-    justify-content: center;
-    padding: 2%;
-    position: relative; /* Set position relative for absolute children */
+    padding: 5% 10%; /* Top and bottom 2%, left and right 5% */
+    box-sizing: border-box; /* Ensure padding is included in total width */
+    contain:layout;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 100%; /* Full width of the parent */
-    max-width: 100%; /* Prevent exceeding parent width */
+    position: relative; /* Set position relative for absolute children */
 }
 
 .cell {
@@ -83,8 +81,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    padding: 0 5%;
     background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
     border-radius: 15px;
     pointer-events: none;
     z-index: 1; /* Ensure the banner is above the canvas */
